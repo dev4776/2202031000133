@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Text Field with Suggested Text</title>
+    <style>
+        /* Add some styling to the text field and suggested text */
+        .text-field {
+            width: 300px;
+            height: 30px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .suggested-text {
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            color: #999;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="text-field" onfocus="hideSuggestedText(this)" onblur="showSuggestedText(this)"
+        oninput="hideSuggestedText(this)" />
+    <span class="suggested-text" id="suggested-text">Suggested Text</span>
+
+    <script>
+        // Function to hide the suggested text when the user clicks on the text field
+        function hideSuggestedText(input) {
+            if (input.value === "") {
+                input.value = input.getAttribute("data-suggested-text");
+                input.style.color = "#999";
+                input.nextElementSibling.style.opacity = 0;
+            }
+        }
+
+        // Function to show the suggested text when the user leaves the text field
+        function showSuggestedText(input) {
+            if (input.value === input.getAttribute("data-suggested-text")) {
+                input.value = "";
+                input.style.color = "#333";
+                input.nextElementSibling.style.opacity = 1;
+            }
+        }
+
+        // Set the suggested text as a data attribute on the input element
+        const inputElement = document.querySelector(".text-field");
+        inputElement.setAttribute("data-suggested-text", inputElement.nextElementSibling.innerText);
+    </script>
+</body>
+
+</html>
